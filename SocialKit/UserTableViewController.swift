@@ -59,12 +59,7 @@ class UserTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath) as! UserTableViewCell
         
         cell.user = user
-        
-        //Não faça assim!
-//        if let nomeLabel = cell.viewWithTag(10) as? UILabel {
-//            nomeLabel.text = "Nome \(index)"
-//        }
-        
+
         return cell
         
     }
@@ -81,10 +76,11 @@ class UserTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier, identifier == "onUserSegue" {
             print("Sender: \(sender ?? "não veio!")")
-            
             if let userCell = sender as? UserTableViewCell, let user = userCell.user {
-                
                 segue.destination.title = user.name
+                
+                let postViewController = segue.destination as! PostsTableViewController
+                postViewController.userId = user.id
                 
             }
         }
